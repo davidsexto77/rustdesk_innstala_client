@@ -867,17 +867,17 @@ class FileController {
           ],
         ),
         actions: [
-          dialogButton(
-            "Cancel",
-            icon: Icon(Icons.close_rounded),
-            onPressed: close,
-            isOutline: true,
-          ),
-          dialogButton(
-            "OK",
-            icon: Icon(Icons.done_rounded),
-            onPressed: submit,
-          ),
+        //  dialogButton(
+        //    "Cancel",
+        //    icon: Icon(Icons.close_rounded),
+        //    onPressed: close,
+        //    isOutline: true,
+        //  ),
+        //  dialogButton(
+        //    "OK",
+        //    icon: Icon(Icons.done_rounded),
+        //    onPressed: submit,
+        //  ),
         ],
         onSubmit: submit,
         onCancel: close,
@@ -1041,7 +1041,7 @@ class JobController {
         final dm = alogManager;
         if (dm != null) {
           _lastTimeShowMsgbox = DateTime.now().millisecondsSinceEpoch;
-          msgBox(sessionId, 'custom-nocancel', 'Error', err, '', dm);
+         // msgBox(sessionId, 'custom-nocancel', 'Error', err, '', dm);
         }
       }
     }
@@ -1099,7 +1099,7 @@ class JobController {
     }
 
     if (!isAutoStart) {
-      if (!(isDesktop || isWebDesktop)) {
+      if (false) {
         // Don't add to job table if not auto start on mobile.
         // Because mobile does not support job list view now.
         return;
@@ -1786,7 +1786,7 @@ class _FileDialogEvent extends BaseEvent<FileDialogType, Map<String, dynamic>> {
   bool? _overrideConfirm;
   bool _skip = false;
 
-  _FileDialogEvent(this.fileModel, FileDialogType type, Map<String, dynamic> data) : super(type, data);
+  _FileDialogEvent(this.fileModel, FileDialogType type, Map<String, dynamic> data) : super();
 
   void setOverrideConfirm(bool? confirm) {
     _overrideConfirm = confirm;
