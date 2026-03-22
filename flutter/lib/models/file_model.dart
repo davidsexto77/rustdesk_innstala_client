@@ -1833,10 +1833,10 @@ class FileDialogEventLoop
   }
 
   @override
-  Future<void> onEventsClear() {
+  Future<void> onEventsClear() async {
     _overrideConfirm = null;
     _skip = false;
-    return super.onEventsClear();
+    //return super.onEventsClear();
   }
 
   void setOverrideConfirm(bool? confirm) {
