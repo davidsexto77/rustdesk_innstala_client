@@ -65,8 +65,8 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildLeftPane(context),
-        if (!isIncomingOnly) const VerticalDivider(width: 1),
-        if (!isIncomingOnly) Expanded(child: buildRightPane(context)),
+        //if (!isIncomingOnly) const VerticalDivider(width: 1),
+        //if (!isIncomingOnly) Expanded(child: buildRightPane(context)),
       ],
     ));
   }
@@ -80,6 +80,19 @@ class _DesktopHomePageState extends State<DesktopHomePage>
     final isIncomingOnly = bind.isIncomingOnly();
     final isOutgoingOnly = bind.isOutgoingOnly();
     final children = <Widget>[
+          const SizedBox(height: 25),
+          Center(child: Image.asset('assets/logo.png', height: 80)),
+          const SizedBox(height: 10),
+          const Center(
+            child: Text(
+              'INNSTALA',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const Center(
+            child: Text('Tu partner tecnológico siempre cerca'),
+          ),
+          const SizedBox(height: 30),
       if (!isOutgoingOnly) buildPresetPasswordWarning(),
       if (bind.isCustomClient())
         Align(
