@@ -1451,13 +1451,13 @@ extension JobStateDisplay on JobState {
   String display() {
     switch (this) {
       case JobState.none:
-        return translate("Waiting");
+        return "Waiting";
       case JobState.inProgress:
-        return translate("Transfer file");
+        return "Transfer file";
       case JobState.done:
-        return translate("Finished");
+        return "Finished";
       case JobState.error:
-        return translate("Error");
+        return "Error";
       default:
         return "";
     }
@@ -1511,11 +1511,11 @@ class JobProgress {
   String display() {
     if (type == JobType.transfer) {
       if (state == JobState.done && err == "skipped") {
-        return translate("Skipped");
+        return "Skipped";
       }
     } else if (type == JobType.deleteFile) {
       if (err == "cancel") {
-        return translate("Cancel");
+        return "Cancel";
       }
     }
 
@@ -1532,10 +1532,8 @@ class JobProgress {
       finishedSize = totalSize;
     }
     final filesStr = "$handledFileCount/$fileCount files";
-    final sizeStr = totalSize > 0 ? readableFileSize(totalSize.toDouble()) : "";
-    final sizePercentStr = totalSize > 0 && finishedSize > 0
-        ? "${readableFileSize(finishedSize.toDouble())} / ${readableFileSize(totalSize.toDouble())}"
-        : "";
+    final sizeStr = "";
+    final sizePercentStr = "";
     if (type == JobType.deleteFile) {
       return display();
     } else if (type == JobType.deleteDir) {
@@ -1788,7 +1786,7 @@ class _FileDialogEvent extends BaseEvent<FileDialogType, Map<String, dynamic>> {
   bool? _overrideConfirm;
   bool _skip = false;
 
-  _FileDialogEvent(this.fileModel, super.type, super.data);
+  _FileDialogEvent(this.fileModel, FileDialogType type, Map<String, dynamic> data) : super(type, data);
 
   void setOverrideConfirm(bool? confirm) {
     _overrideConfirm = confirm;
