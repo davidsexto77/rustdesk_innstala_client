@@ -1786,7 +1786,7 @@ class _FileDialogEvent extends BaseEvent<FileDialogType, Map<String, dynamic>> {
   bool? _overrideConfirm;
   bool _skip = false;
 
-  _FileDialogEvent(this.fileModel, FileDialogType type, Map<String, dynamic> data) : super();
+  _FileDialogEvent(this.fileModel, FileDialogType type, Map<String, dynamic> data) : super(type, data);
 
   void setOverrideConfirm(bool? confirm) {
     _overrideConfirm = confirm;
