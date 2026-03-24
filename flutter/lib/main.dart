@@ -502,9 +502,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           title: isWeb
               ? '${bind.mainGetAppNameSync()} Web Client V2 (Preview)'
               : bind.mainGetAppNameSync(),
-          theme: MyTheme.lightTheme,
+          theme: MyTheme.darkTheme,
           darkTheme: MyTheme.darkTheme,
-          themeMode: MyTheme.currentThemeMode(),
+          themeMode: ThemeMode.dark,
           home: isDesktop
               ? const DesktopTabPage()
               : isWeb
