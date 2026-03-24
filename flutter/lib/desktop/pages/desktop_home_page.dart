@@ -79,31 +79,34 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   Widget buildLeftPane(BuildContext context) {
     final isIncomingOnly = bind.isIncomingOnly();
     final isOutgoingOnly = bind.isOutgoingOnly();
-    
+
     final children = <Widget>[
-      // --- TU MARCA PROFESIONAL INNSTALA ---
-      const SizedBox(height: 30),
+      // --- BLOQUE CORPORATIVO INNSTALA ---
+      const SizedBox(height: 35), // Espacio arriba para que no esté pegado al borde
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           children: [
-            Center(child: Image.asset('assets/logo.png', height: 80)),
-            const SizedBox(height: 16),
+            // Tu logo transparente
+            Center(child: Image.asset('assets/logo.png', height: 85)), 
+            const SizedBox(height: 18),
+            // Nombre de la empresa con estilo
             const Text(
               'INNSTALA',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
-                letterSpacing: 1.5,
-                color: Color(0xFF2196F3),
+                letterSpacing: 2.0,
+                color: Color(0xFF2196F3), // Azul profesional
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 6),
+            // Tu eslogan
             const Text(
               'Tu partner tecnológico siempre cerca',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 13,
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,
               ),
@@ -111,7 +114,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
           ],
         ),
       ),
-      const SizedBox(height: 30),
+      const SizedBox(height: 35), // Espacio antes de los datos de conexión
       // ------------------------------------
 
       if (!isOutgoingOnly) buildPresetPasswordWarning(),
@@ -120,6 +123,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       if (!isOutgoingOnly) buildIDBoard(context),
       if (!isOutgoingOnly) buildPasswordBoard(context),
 
+      // Este bloque maneja las tarjetas de ayuda dinámicas
       FutureBuilder<Widget>(
         future: Future.value(
             Obx(() => buildHelpCards(stateGlobal.updateUrl.value))),
@@ -139,12 +143,12 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         },
       ),
       buildPluginEntry(),
-    ]; // Aquí termina tu lista de children
+    ];
 
-    // 1. PRIMERO: Añadimos el estado online si hace falta
+    // Lógica para mostrar el estado online (Divider + Widget)
     if (isIncomingOnly) {
       children.addAll([
-        const Divider(),
+        const Divider(height: 30, thickness: 1),
         OnlineStatusWidget(
           onSvcStatusChanged: () {
             if (isInHomePage()) {
@@ -157,9 +161,10 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       ]);
     }
 
-    // 2. SEGUNDO: Enviamos todo el paquete a la pantalla
+    // El contenedor final que dibuja la columna izquierda
     return Container(
       width: 300,
+      color: Theme.of(context).colorScheme.background,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,73 +172,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         ),
       ),
     );
-  } // <--- ESTA es la llave única que cierra la función.
-    if (isIncomingOnly) {
-      children.addAll([
-        Divider(),
-        OnlineStatusWidget(
-          onSvcStatusChanged: () {
-            if (isInHomePage()) {
-              Future.delayed(Duration(milliseconds: 300), () {
-                _updateWindowSize();
-              });
-            }
-          },
-        ).marginOnly(bottom: 6, right: 6)
-      ]);
-    }
-    final textColor = Theme.of(context).textTheme.titleLarge?.color;
-    return ChangeNotifierProvider.value(
-      value: gFFI.serverModel,
-      child: Container(
-        width: isIncomingOnly ? 280.0 : 200.0,
-        color: Theme.of(context).colorScheme.background,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                SingleChildScrollView(
-                  controller: _leftPaneScrollController,
-                  child: Column(
-                    key: _childKey,
-                    children: children,
-                  ),
-                ),
-                Expanded(child: Container())
-              ],
-            ),
-            if (isOutgoingOnly)
-              Positioned(
-                bottom: 6,
-                left: 12,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: InkWell(
-                    child: Obx(
-                      () => Icon(
-                        Icons.settings,
-                        color: _editHover.value
-                            ? textColor
-                            : Colors.grey.withOpacity(0.5),
-                        size: 22,
-                      ),
-                    ),
-                    onTap: () => {
-                      if (DesktopSettingPage.tabKeys.isNotEmpty)
-                        {
-                          DesktopSettingPage.switch2page(
-                              DesktopSettingPage.tabKeys[0])
-                        }
-                    },
-                    onHover: (value) => _editHover.value = value,
-                  ),
-                ),
-              )
-          ],
-        ),
-      ),
-    );
-  }
+  } // <--- ESTA ES LA ÚNICA LLAVE QUE CIERRA LA FUNCIÓN
 
   buildRightPane(BuildContext context) {
     return Container(
