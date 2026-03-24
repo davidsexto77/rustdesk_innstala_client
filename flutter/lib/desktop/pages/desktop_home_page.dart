@@ -59,14 +59,14 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final isIncomingOnly = bind.isIncomingOnly();
+    final isIncomingOnly = false;
     return _buildBlock(
         child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildLeftPane(context),
-        //if (!isIncomingOnly) const VerticalDivider(width: 1),
-        //if (!isIncomingOnly) Expanded(child: buildRightPane(context)),
+        const VerticalDivider(width: 1),
+        Expanded(child: buildRightPane(context)),
       ],
     ));
   }
@@ -77,8 +77,8 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   }
 
   Widget buildLeftPane(BuildContext context) {
-    final isIncomingOnly = bind.isIncomingOnly();
-    final isOutgoingOnly = bind.isOutgoingOnly();
+    final isIncomingOnly = false;
+    final isOutgoingOnly = false;
 
     final children = <Widget>[
       // --- BLOQUE CORPORATIVO INNSTALA ---
