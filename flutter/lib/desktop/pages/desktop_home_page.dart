@@ -81,105 +81,72 @@ class _DesktopHomePageState extends State<DesktopHomePage>
     final isOutgoingOnly = bind.isOutgoingOnly();
 
     final children = <Widget>[
-      // --- BLOQUE CORPORATIVO INNSTALA ---
-      const SizedBox(height: 35), // Espacio arriba para que no esté pegado al borde
+      // --- DISEÑO CORPORATIVO INNSTALA ---
+      const SizedBox(height: 35),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           children: [
-            // Tu logo transparente
-            Center(child: Image.asset('assets/logo.png', height: 85)), 
+            Center(child: Image.asset('assets/logo.png', height: 85)),
             const SizedBox(height: 18),
-            // Nombre de la empresa con estilo
             const Text(
               'INNSTALA',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.0,
-                color: Color(0xFF2196F3), // Azul profesional
+                color: Color(0xFF2196F3),
               ),
             ),
             const SizedBox(height: 6),
-            // Tu eslogan
             const Text(
               'Tu partner tecnológico siempre cerca',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.grey,
-                fontStyle: FontStyle.italic,
-              ),
-              const SizedBox(height: 15), 
-              Center( // <--- Añadimos esto para que no salga pegado a la izquierda
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Text(
-                    'Soporte ACTIVO SOLO mientras esta ventana esté ABIERTA',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                    ),
-                  ),
+              style: TextStyle(fontSize: 13, color: Colors.grey, fontStyle: FontStyle.italic),
+            ),
+            const SizedBox(height: 15),
+            // AVISO DE PRIVACIDAD CENTRADO
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.redAccent.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  'Soporte ACTIVO SOLO mientras esta ventana esté ABIERTA',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.redAccent),
                 ),
               ),
+            ),
           ],
         ),
       ),
-      const SizedBox(height: 35), // Espacio antes de los datos de conexión
-      // ------------------------------------
-
+      const SizedBox(height: 35),
+      
+      // --- COMPONENTES DE CONEXIÓN ---
       if (!isOutgoingOnly) buildPresetPasswordWarning(),
-
       buildTip(context),
       if (!isOutgoingOnly) buildIDBoard(context),
       if (!isOutgoingOnly) buildPasswordBoard(context),
 
-      // Este bloque maneja las tarjetas de ayuda dinámicas
       FutureBuilder<Widget>(
-        future: Future.value(
-            Obx(() => buildHelpCards(stateGlobal.updateUrl.value))),
+        future: Future.value(Obx(() => buildHelpCards(stateGlobal.updateUrl.value))),
         builder: (_, data) {
           if (data.hasData) {
-            if (isIncomingOnly) {
-              if (isInHomePage()) {
-                Future.delayed(const Duration(milliseconds: 300), () {
-                  _updateWindowSize();
-                });
-              }
+            if (isIncomingOnly && isInHomePage()) {
+              Future.delayed(const Duration(milliseconds: 300), () => _updateWindowSize());
             }
             return data.data!;
-          } else {
-            return const Offstage();
           }
+          return const Offstage();
         },
       ),
       buildPluginEntry(),
     ];
 
-    // Lógica para mostrar el estado online (Divider + Widget)
-    if (isIncomingOnly) {
-      children.addAll([
-        const Divider(height: 30, thickness: 1),
-        OnlineStatusWidget(
-          onSvcStatusChanged: () {
-            if (isInHomePage()) {
-              Future.delayed(const Duration(milliseconds: 300), () {
-                _updateWindowSize();
-              });
-            }
-          },
-        ),
-      ]);
-    }
-
-    // El contenedor final que dibuja la columna izquierda
+    // EL CONTENEDOR QUE DIBUJA LA COLUMNA
     return Container(
       width: 300,
       color: Theme.of(context).colorScheme.background,
@@ -190,14 +157,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         ),
       ),
     );
-  } // <--- ESTA ES LA ÚNICA LLAVE QUE CIERRA LA FUNCIÓN
-
-  buildRightPane(BuildContext context) {
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: ConnectionPage(),
-    );
-  }
+  } //AQUÍ ACABA LA FUNCION
 
   buildIDBoard(BuildContext context) {
     final model = gFFI.serverModel;
