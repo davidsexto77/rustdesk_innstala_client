@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Purslane Ltd" "\0"
-            VALUE "FileDescription", "RustDesk Remote Desktop" "\0"
+            VALUE "CompanyName", "INNSTALA" "\0"
+            VALUE "FileDescription", "Innstala Remote Desktop Client" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "rustdesk" "\0"
-            VALUE "LegalCopyright", "Copyright © 2025 Purslane Ltd. All rights reserved." "\0"
-            VALUE "OriginalFilename", "rustdesk.exe" "\0"
-            VALUE "ProductName", "RustDesk" "\0"
+            VALUE "InternalName", "innstala" "\0"
+            VALUE "LegalCopyright", "Copyright © 2026 Innstala. All rights reserved." "\0"
+            VALUE "OriginalFilename", "Innstala_Support_Client.exe" "\0"
+            VALUE "ProductName", "Innstala Soporte" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
